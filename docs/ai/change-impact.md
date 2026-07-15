@@ -1,6 +1,6 @@
 # Plane Change Impact
 
-Base: `HEAD^...`
+Base: `origin/preview...`
 
 ## Changed Paths
 
