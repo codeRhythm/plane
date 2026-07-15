@@ -4,47 +4,27 @@ Base: `pull_request`
 
 ## Changed Paths
 
-- `.agents/skills/plane-doc-code-loop/SKILL.md`
-- `.agents/skills/plane-doc-code-loop/agents/openai.yaml`
-- `.agents/skills/plane-doc-consistency-review/SKILL.md`
-- `.agents/skills/plane-doc-consistency-review/agents/openai.yaml`
-- `.agents/skills/plane-project-understand/SKILL.md`
-- `.agents/skills/plane-project-understand/agents/openai.yaml`
 - `.gitattributes`
-- `.github/workflows/plane-ai-doc-loop.yml`
-- `.plane-ai-doc-loop/manifest.json`
-- `.plane-ai-doc-loop/runtime/Install-CodexPlaneSkills.ps1`
-- `.plane-ai-doc-loop/runtime/Install-PlaneDocLoop.ps1`
-- `.plane-ai-doc-loop/runtime/Invoke-PlaneDocLoop.ps1`
-- `.plane-ai-doc-loop/runtime/Test-PlaneDocLoop.ps1`
-- `.plane-ai-doc-loop/runtime/Test-PlaneFrontend.ps1`
-- `.plane-ai-doc-loop/runtime/Test-PlanePrerequisites.ps1`
-- `.plane-ai-doc-loop/runtime/check_doc_gate.py`
-- `.plane-ai-doc-loop/runtime/impact_from_git_diff.py`
-- `.plane-ai-doc-loop/runtime/plane_repo_snapshot.py`
-- `.plane-ai-doc-loop/runtime/test_ci_cold_start.py`
-- `.plane-ai-doc-loop/runtime/test_doc_gate.py`
-- `.plane-ai-doc-loop/runtime/validate_semantic.py`
-- `.plane-ai-doc-loop/runtime/validate_skills.py`
-- `.plane-ai-doc-loop/runtime/validate_workflow.py`
-- `docs/ai/README.md`
+- `apps/api/plane/api/views/issue.py`
+- `apps/api/plane/tests/contract/api/test_issues.py`
+- `apps/api/plane/tests/unit/utils/test_paginator.py`
+- `apps/api/plane/utils/openapi/__init__.py`
+- `apps/api/plane/utils/openapi/parameters.py`
+- `apps/api/plane/utils/paginator.py`
 - `docs/ai/architecture.md`
 - `docs/ai/change-request-template.md`
 - `docs/semantic/change_declaration.json`
-- `docs/semantic/docs_index.json`
-- `docs/semantic/domains.json`
-- `docs/semantic/local_scan.json`
 - `docs/semantic/mappings.json`
-- `docs/semantic/open_questions.json`
-- `docs/semantic/reverse_index.json`
 
 ## Impact Groups
 
-- `configuration`: 5
-- `documentation`: 3
-- `other`: 18
-- `semantic_model`: 7
+- `backend`: 6
+- `documentation`: 2
+- `other`: 1
+- `semantic_model`: 2
 
 ## Required Follow-ups
 
+- Run backend pytest subset and update backend/domain mappings.
+- Run pnpm check or targeted turbo checks and update frontend/package mappings.
 - Run .plane-ai-doc-loop/runtime/validate_semantic.py and regenerate derived docs.

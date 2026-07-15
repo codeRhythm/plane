@@ -75,10 +75,10 @@ This file is generated from local repository structure. Treat it as a navigation
 
 - Domain: `work_items`
 - Api: `apps/api/plane/api/urls/work_item.py`
-- Backend: `apps/api/plane/api/views/issue.py`, `apps/api/plane/api/serializers/issue.py`
+- Backend: `apps/api/plane/api/views/issue.py`, `apps/api/plane/api/serializers/issue.py`, `apps/api/plane/utils/paginator.py`, `apps/api/plane/utils/openapi/__init__.py`, `apps/api/plane/utils/openapi/parameters.py`
 - Database: `apps/api/plane/db/models/issue.py`, `apps/api/plane/db/migrations/0120_issueview_archived_at.py`
 - Frontend: `apps/web/core/services/issue/issue.service.ts`, `apps/web/core/store/issue/issue.store.ts`, `apps/web/core/store/issue/project/issue.store.ts`, `packages/types/src/issues/issue.ts`
-- Test: `apps/api/plane/tests/contract/api/test_issues.py`, `apps/api/plane/tests/unit/serializers/test_issue_recent_visit.py`
+- Test: `apps/api/plane/tests/contract/api/test_issues.py`, `apps/api/plane/tests/unit/serializers/test_issue_recent_visit.py`, `apps/api/plane/tests/unit/utils/test_paginator.py`
 
 
 ## Next AI Steps

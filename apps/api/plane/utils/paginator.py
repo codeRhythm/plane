@@ -652,6 +652,23 @@ class BasePaginator:
 
         return per_page
 
+    def resolve_cursor_value(self, request, per_page, allow_page_number=False):
+        cursor_value = request.GET.get(self.cursor_name)
+        if cursor_value is not None or not allow_page_number:
+            return cursor_value or f"{per_page}:0:0"
+
+        page_value = request.GET.get("page")
+        if page_value is None:
+            return f"{per_page}:0:0"
+
+        try:
+            page = int(page_value)
+        except (TypeError, ValueError):
+            raise ParseError(detail="Invalid page parameter.")
+        if page < 1:
+            raise ParseError(detail="Page parameter must be greater than zero.")
+        return f"{per_page}:{page - 1}:0"
+
     def paginate(
         self,
         request,
@@ -669,14 +686,17 @@ class BasePaginator:
         sub_group_by_fields=None,
         count_filter=None,
         total_count_queryset=None,
+        allow_page_number=False,
         **paginator_kwargs,
     ):
         """Paginate the request"""
         per_page = self.get_per_page(request, default_per_page, max_per_page)
+        cursor_value = self.resolve_cursor_value(request, per_page, allow_page_number)
+
         # Convert the cursor value to integer and float from string
         input_cursor = None
         try:
-            input_cursor = cursor_cls.from_string(request.GET.get(self.cursor_name, f"{per_page}:0:0"))
+            input_cursor = cursor_cls.from_string(cursor_value)
         except ValueError:
             raise ParseError(detail="Invalid cursor parameter.")
 

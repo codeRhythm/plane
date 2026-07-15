@@ -271,6 +271,15 @@ CURSOR_PARAMETER = OpenApiParameter(
     ],
 )
 
+PAGE_PARAMETER = OpenApiParameter(
+    name="page",
+    type=OpenApiTypes.INT,
+    location=OpenApiParameter.QUERY,
+    description="1-based page number used when cursor is not provided",
+    required=False,
+    examples=[OpenApiExample(name="Second page", value=2)],
+)
+
 PER_PAGE_PARAMETER = OpenApiParameter(
     name="per_page",
     type=OpenApiTypes.INT,

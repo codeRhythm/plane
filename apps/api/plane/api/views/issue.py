@@ -111,6 +111,7 @@ from plane.utils.openapi import (
     ACTIVITY_ID_PARAMETER,
     PROJECT_ID_QUERY_PARAMETER,
     CURSOR_PARAMETER,
+    PAGE_PARAMETER,
     PER_PAGE_PARAMETER,
     EXTERNAL_ID_PARAMETER,
     EXTERNAL_SOURCE_PARAMETER,
@@ -289,6 +290,7 @@ class IssueListCreateAPIEndpoint(BaseAPIView):
         description="Retrieve a paginated list of all work items in a project. Supports filtering, ordering, and field selection through query parameters.",  # noqa: E501
         parameters=[
             CURSOR_PARAMETER,
+            PAGE_PARAMETER,
             PER_PAGE_PARAMETER,
             EXTERNAL_ID_PARAMETER,
             EXTERNAL_SOURCE_PARAMETER,
@@ -411,6 +413,7 @@ class IssueListCreateAPIEndpoint(BaseAPIView):
             queryset=(issue_queryset),
             total_count_queryset=total_issue_queryset,
             on_results=lambda issues: IssueSerializer(issues, many=True, fields=self.fields, expand=self.expand).data,
+            allow_page_number=True,
         )
 
     @work_item_docs(
