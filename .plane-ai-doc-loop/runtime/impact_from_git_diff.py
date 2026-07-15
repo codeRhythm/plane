@@ -58,7 +58,7 @@ def classify(path: str) -> str:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", default=".", help="Plane repository root")
-    parser.add_argument("--base", default=None, help="optional git diff base, for example origin/preview...")
+    parser.add_argument("--base", default=None, help="optional git diff base used only for path calculation")
     parser.add_argument("--git", default="git", help="Git executable path")
     args = parser.parse_args()
 
@@ -70,7 +70,7 @@ def main() -> int:
 
     payload = {
         "schema_version": "1.0",
-        "base": args.base or "working_tree",
+        "base": "pull_request" if args.base else "working_tree",
         "changed_paths": changed,
         "groups": groups,
         "required_followups": [],

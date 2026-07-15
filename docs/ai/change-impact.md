@@ -1,6 +1,6 @@
 # Plane Change Impact
 
-Base: `origin/preview...`
+Base: `pull_request`
 
 ## Changed Paths
 

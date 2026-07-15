@@ -41,8 +41,8 @@ jobs:
         id: changes
         shell: bash
         run: |
-          if [[ -n "${{ github.base_ref }}" ]]; then
-            diff_base="origin/${{ github.base_ref }}..."
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            diff_base="${{ github.event.pull_request.base.sha }}..."
           else
             diff_base="HEAD^..."
           fi
