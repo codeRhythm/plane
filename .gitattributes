@@ -1,1 +1,5 @@
 *.sh text eol=lf
+docs/ai/architecture.md text eol=lf
+docs/ai/change-impact.md text eol=lf
+docs/semantic/change_impact.json text eol=lf
+docs/semantic/local_scan.json text eol=lf
