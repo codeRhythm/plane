@@ -1,4 +1,10 @@
 *.sh text eol=lf
+apps/api/plane/api/views/issue.py text eol=lf
+apps/api/plane/tests/contract/api/test_issues.py text eol=lf
+apps/api/plane/tests/unit/utils/test_paginator.py text eol=lf
+apps/api/plane/utils/openapi/__init__.py text eol=lf
+apps/api/plane/utils/openapi/parameters.py text eol=lf
+apps/api/plane/utils/paginator.py text eol=lf
 docs/ai/architecture.md text eol=lf
 docs/ai/change-impact.md text eol=lf
 docs/semantic/change_impact.json text eol=lf

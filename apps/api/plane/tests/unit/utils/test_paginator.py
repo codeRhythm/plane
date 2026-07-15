@@ -39,6 +39,31 @@ def _make_request(**params):
 
 
 @pytest.mark.unit
+class TestPageNumberCursorCompatibility:
+    def test_page_number_is_converted_to_zero_based_cursor_offset(self):
+        request = _make_request(page="2")
+
+        assert BasePaginator().resolve_cursor_value(request, per_page=25, allow_page_number=True) == "25:1:0"
+
+    @pytest.mark.parametrize("value", ["invalid", "0", "-1"])
+    def test_invalid_page_number_raises_parse_error(self, value):
+        request = _make_request(page=value)
+
+        with pytest.raises(ParseError):
+            BasePaginator().resolve_cursor_value(request, per_page=25, allow_page_number=True)
+
+    def test_cursor_takes_precedence_over_invalid_page(self):
+        request = _make_request(cursor="25:3:0", page="invalid")
+
+        assert BasePaginator().resolve_cursor_value(request, per_page=25, allow_page_number=True) == "25:3:0"
+
+    def test_page_number_is_ignored_without_explicit_opt_in(self):
+        request = _make_request(page="2")
+
+        assert BasePaginator().resolve_cursor_value(request, per_page=25) == "25:0:0"
+
+
+@pytest.mark.unit
 class TestPaginateGroupByValidation:
     """Regression tests for GHSA-wwgj-929g-42cm.
 

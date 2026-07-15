@@ -12,7 +12,10 @@
       ],
       "backend_paths": [
         "apps/api/plane/api/views/issue.py",
-        "apps/api/plane/api/serializers/issue.py"
+        "apps/api/plane/api/serializers/issue.py",
+        "apps/api/plane/utils/paginator.py",
+        "apps/api/plane/utils/openapi/__init__.py",
+        "apps/api/plane/utils/openapi/parameters.py"
       ],
       "database_paths": [
         "apps/api/plane/db/models/issue.py",
@@ -23,7 +26,8 @@
       ],
       "test_paths": [
         "apps/api/plane/tests/contract/api/test_issues.py",
-        "apps/api/plane/tests/unit/serializers/test_issue_recent_visit.py"
+        "apps/api/plane/tests/unit/serializers/test_issue_recent_visit.py",
+        "apps/api/plane/tests/unit/utils/test_paginator.py"
       ],
       "status": "active",
       "confidence": 0.9,
@@ -32,10 +36,14 @@
         "apps/api/plane/api/views/issue.py",
         "apps/api/plane/api/serializers/issue.py",
         "apps/api/plane/db/models/issue.py",
+        "apps/api/plane/utils/paginator.py",
+        "apps/api/plane/utils/openapi/__init__.py",
+        "apps/api/plane/utils/openapi/parameters.py",
         "apps/web/core/services/issue/issue.service.ts",
         "apps/web/core/store/issue/issue.store.ts",
         "packages/types/src/issues/issue.ts",
-        "apps/api/plane/tests/contract/api/test_issues.py"
+        "apps/api/plane/tests/contract/api/test_issues.py",
+        "apps/api/plane/tests/unit/utils/test_paginator.py"
       ]
     }
   ],

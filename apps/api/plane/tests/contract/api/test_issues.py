@@ -94,3 +94,63 @@ class TestIssueListOrderByInjection:
             assert response.status_code == status.HTTP_200_OK, (
                 f"order_by={value!r} got {response.status_code}: {response.data!r}"
             )
+
+
+@pytest.mark.contract
+class TestWorkItemPagePagination:
+    def get_url(self, workspace_slug, project_id):
+        return f"/api/v1/workspaces/{workspace_slug}/projects/{project_id}/work-items/"
+
+    @pytest.mark.django_db
+    def test_page_parameter_returns_distinct_pages(self, api_key_client, workspace, project, state, create_user):
+        issues = [
+            Issue.objects.create(
+                name=f"Paginated issue {index}",
+                workspace=workspace,
+                project=project,
+                state=state,
+                created_by=create_user,
+            )
+            for index in range(3)
+        ]
+        url = self.get_url(workspace.slug, project.id)
+
+        first_page = api_key_client.get(url, {"per_page": 1, "page": 1})
+        second_page = api_key_client.get(url, {"per_page": 1, "page": 2})
+        third_page = api_key_client.get(url, {"per_page": 1, "page": 3})
+
+        assert first_page.status_code == status.HTTP_200_OK
+        assert second_page.status_code == status.HTTP_200_OK
+        assert third_page.status_code == status.HTTP_200_OK
+
+        returned_ids = [
+            response.data["results"][0]["id"] for response in (first_page, second_page, third_page)
+        ]
+        assert len(set(returned_ids)) == len(issues)
+        assert third_page.data["next_page_results"] is False
+        assert third_page.data["total_pages"] == 3
+
+    @pytest.mark.django_db
+    def test_invalid_page_parameter_returns_400(self, api_key_client, workspace, project, issue):
+        url = self.get_url(workspace.slug, project.id)
+
+        for value in ["invalid", "0", "-1"]:
+            response = api_key_client.get(url, {"per_page": 1, "page": value})
+            assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    @pytest.mark.django_db
+    def test_cursor_takes_precedence_over_page(self, api_key_client, workspace, project, state, create_user):
+        for index in range(2):
+            Issue.objects.create(
+                name=f"Cursor issue {index}",
+                workspace=workspace,
+                project=project,
+                state=state,
+                created_by=create_user,
+            )
+        url = self.get_url(workspace.slug, project.id)
+
+        response = api_key_client.get(url, {"per_page": 1, "page": "invalid", "cursor": "1:1:0"})
+
+        assert response.status_code == status.HTTP_200_OK
+        assert response.data["prev_page_results"] is True
