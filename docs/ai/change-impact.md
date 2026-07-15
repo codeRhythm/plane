@@ -1,6 +1,6 @@
 # Plane Change Impact
 
-Base: `working_tree`
+Base: `HEAD^...`
 
 ## Changed Paths
 

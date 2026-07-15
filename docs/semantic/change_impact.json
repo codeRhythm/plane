@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "base": "working_tree",
+  "base": "HEAD^...",
   "changed_paths": [
     ".agents/skills/plane-doc-code-loop/SKILL.md",
     ".agents/skills/plane-doc-code-loop/agents/openai.yaml",
