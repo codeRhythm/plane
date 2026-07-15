@@ -62,7 +62,7 @@ def list_files_by_suffix(search_root: Path, repo_root: Path, suffixes: tuple[str
 
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
 
 
 def write_architecture(root: Path, snapshot: dict) -> None:
@@ -113,7 +113,7 @@ def write_architecture(root: Path, snapshot: dict) -> None:
             "- Run `powershell -ExecutionPolicy Bypass -File .plane-ai-doc-loop/runtime/Invoke-PlaneDocLoop.ps1 -PlanePath .` before asking an agent to implement code from documentation.",
         ]
     )
-    (docs_dir / "architecture.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (docs_dir / "architecture.md").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
 
 
 def main() -> int:

@@ -30,6 +30,8 @@ def run_git(git: str, root: Path, arguments: list[str]) -> list[str]:
 def git_changed(git: str, root: Path, base: str | None) -> list[str]:
     if base:
         changed = run_git(git, root, ["diff", "--name-only", base, "--"])
+        changed.extend(run_git(git, root, ["diff", "--name-only", "--"]))
+        changed.extend(run_git(git, root, ["diff", "--cached", "--name-only", "--"]))
         changed.extend(run_git(git, root, ["ls-files", "--others", "--exclude-standard"]))
         return sorted(set(changed))
 
@@ -87,7 +89,7 @@ def main() -> int:
     out_md = root / "docs" / "ai" / "change-impact.md"
     out_json.parent.mkdir(parents=True, exist_ok=True)
     out_md.parent.mkdir(parents=True, exist_ok=True)
-    out_json.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    out_json.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
 
     lines = [
         "# Plane Change Impact",
@@ -103,7 +105,7 @@ def main() -> int:
         lines.append(f"- `{group}`: {len(paths)}")
     lines.extend(["", "## Required Follow-ups", ""])
     lines.extend([f"- {item}" for item in payload["required_followups"]] or ["- No automatic follow-up inferred"])
-    out_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    out_md.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     print("wrote docs/semantic/change_impact.json and docs/ai/change-impact.md")
     return 0
 

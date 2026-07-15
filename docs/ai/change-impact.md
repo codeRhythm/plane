@@ -10,6 +10,7 @@ Base: `pull_request`
 - `.agents/skills/plane-doc-consistency-review/agents/openai.yaml`
 - `.agents/skills/plane-project-understand/SKILL.md`
 - `.agents/skills/plane-project-understand/agents/openai.yaml`
+- `.gitattributes`
 - `.github/workflows/plane-ai-doc-loop.yml`
 - `.plane-ai-doc-loop/manifest.json`
 - `.plane-ai-doc-loop/runtime/Install-CodexPlaneSkills.ps1`
@@ -41,7 +42,7 @@ Base: `pull_request`
 
 - `configuration`: 5
 - `documentation`: 3
-- `other`: 17
+- `other`: 18
 - `semantic_model`: 7
 
 ## Required Follow-ups
